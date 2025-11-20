@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Khởi động Ứng dụng APEX</title>
+    <!-- Tải Tailwind CSS để styling nhanh và responsive -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Thiết lập font Inter -->
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f3f4f6; /* Màu nền nhẹ */
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh; /* Chiếm toàn bộ chiều cao viewport */
+            margin: 0;
+            padding: 20px;
+        }
+        /* Style cho thẻ <a> và <button> để trông giống nút */
+        .btn {
+            display: inline-block;
+            text-align: center;
+            cursor: pointer;
+            transition: all 150ms ease-in-out;
+            text-decoration: none; /* Loại bỏ gạch chân của link */
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            border: none;
+        }
+
+        /* Thêm style cho nút Quay lại ở đầu trang */
+        .top-back-button-container {
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            /* Đảm bảo nút này nằm trên mọi thứ */
+            z-index: 10; 
+        }
+
+    </style>
+</head>
+<body class="antialiased">
+    <!-- NÚT QUAY LẠI TRANG TRƯỚC (Đã di chuyển ra ngoài khối chính) -->
+    <div class="top-back-button-container">
+        <button 
+            onclick="goBack()"
+            class="btn px-4 py-2 text-sm bg-slate-500 text-white font-medium rounded-xl hover:bg-slate-600 transition duration-150 ease-in-out flex items-center shadow-lg"
+            title="Quay lại trang trước đó trong lịch sử trình duyệt."
+        >
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 mr-1" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M10 19l-7-7m0 0l7-7m-7 7h18" />
+            </svg>
+            Quay lại
+        </button>
+    </div>
+    <div class="max-w-md w-full mx-auto px-4 py-8">
+        
+        <!-- Container chính -->
+        <main class="bg-white rounded-xl shadow-2xl p-8 text-center">
+            
+            <!-- Header / Tiêu đề -->
+            <header class="mb-6">
+                <h1 class="text-3xl font-extrabold text-indigo-700 mb-2">Khởi động Ứng dụng APEX</h1>
+            </header>
+
+            <!-- NÚT KHỞI ĐỘNG ỨNG DỤNG -->
+            <div class="flex flex-col gap-4 my-8">
+                <a 
+                    id="direct-launch-button"
+                    href="#" 
+                    target="_blank"
+                    class="btn px-8 py-3 text-base bg-indigo-600 text-white font-bold rounded-xl hover:bg-indigo-700 transition duration-150 ease-in-out w-full disabled:opacity-50"
+                    title="Mở link APEX trực tiếp. Yêu cầu cấu hình WebView cho target=_blank"
+                >
+                    Mở ứng dụng Oracle APEX
+                </a>
+            </div>
+        </main>
+    </div>
+
+    <script>
+        // Đặt URL APEX thực tế vào đây sau khi sao chép mã
+        const APEX_APP_URL = 'https://cloudfile.saigonco-op.vn/index.php/s/ZL8kSSX48keSxoJ'; 
+
+        const DIRECT_LAUNCH_BUTTON = document.getElementById('direct-launch-button');
+        const BRIDGE_LAUNCH_BUTTON = document.getElementById('bridge-launch-button');
+        const STATUS_MESSAGE = document.getElementById('status-message');
+        // URL chuyển hướng cố định cho nút "Quay lại" trên trang Launcher này
+        const BACK_BUTTON_REDIRECT_URL = 'https://www.saigonco-op.vn/Event/Event?eventId=116';
+        // Hàm xử lý nút Quay lại (Chuyển hướng trực tiếp đến URL cố định)
+        function goBack() {
+            console.log("Navigating directly to fixed redirect URL:", BACK_BUTTON_REDIRECT_URL);
+            // Sử dụng window.location.assign() để chuyển hướng trực tiếp đến URL cố định
+            window.location.assign(BACK_BUTTON_REDIRECT_URL);
+            return false;
+        }
+        document.addEventListener('DOMContentLoaded', function() {
+            
+            // --- Xử lý URL và Custom Scheme ---
+            let targetUrl = APEX_APP_URL;
+                // Cấu hình Nút 1: Mở trực tiếp (Direct Link)
+                DIRECT_LAUNCH_BUTTON.href = targetUrl;
+        });
+    </script>
+    
+</body>
+</html>
